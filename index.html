@@ -3,580 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOVE - O caminho é seu</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #ffffff;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        /* Navigation */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid #e5e7eb;
-            transition: all 0.3s ease;
-        }
-
-        .nav-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 64px;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #000AFF, #7B04E3);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 18px;
-        }
-
-        .logo-text {
-            font-size: 20px;
-            font-weight: bold;
-            color: #000;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 32px;
-        }
-
-        .nav-link {
-            color: #6b7280;
-            text-decoration: none;
-            transition: color 0.2s;
-            cursor: pointer;
-        }
-
-        .nav-link:hover {
-            color: #000AFF;
-        }
-
-        .btn {
-            background: #7B04E3;
-            color: white;
-            padding: 8px 16px;
-            border: none;
-            border-radius: 24px;
-            text-decoration: none;
-            transition: all 0.3s;
-            cursor: pointer;
-            display: inline-block;
-        }
-
-        .btn:hover {
-            background: rgba(123, 4, 227, 0.9);
-            transform: scale(1.05);
-        }
-
-        .btn-primary {
-            background: #000AFF;
-            padding: 16px 32px;
-            font-size: 18px;
-        }
-
-        .btn-primary:hover {
-            background: rgba(0, 10, 255, 0.9);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid #7B04E3;
-            color: #7B04E3;
-        }
-
-        .btn-outline:hover {
-            background: #7B04E3;
-            color: white;
-        }
-
-        /* Mobile Menu */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-        }
-
-        .mobile-menu {
-            display: none;
-            padding: 16px 0;
-            border-top: 1px solid #e5e7eb;
-        }
-
-        .mobile-menu.active {
-            display: block;
-        }
-
-        .mobile-nav-links {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            padding-top: 64px;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1));
-            opacity: 0.3;
-        }
-
-        .hero-content {
-            text-align: center;
-            position: relative;
-            z-index: 10;
-        }
-
-        .hero-icon {
-            width: 96px;
-            height: 96px;
-            background: linear-gradient(135deg, #000AFF, #7B04E3);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 24px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-        }
-
-        .hero-title {
-            font-size: clamp(4rem, 8vw, 8rem);
-            font-weight: bold;
-            margin-bottom: 32px;
-            letter-spacing: -0.02em;
-            color: #000;
-        }
-
-        .hero-subtitle {
-            font-size: clamp(1.25rem, 3vw, 2rem);
-            color: #374151;
-            margin-bottom: 48px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .hero-description {
-            font-size: 18px;
-            color: #6b7280;
-            max-width: 600px;
-            margin: 0 auto 32px;
-        }
-
-        .hero-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            align-items: center;
-        }
-
-        .chevron-down {
-            position: absolute;
-            bottom: 32px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 2s infinite;
-            color: #9ca3af;
-            font-size: 32px;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 53%, 80%, 100% {
-                transform: translateX(-50%) translateY(0);
-            }
-            40%, 43% {
-                transform: translateX(-50%) translateY(-10px);
-            }
-            70% {
-                transform: translateX(-50%) translateY(-5px);
-            }
-            90% {
-                transform: translateX(-50%) translateY(-2px);
-            }
-        }
-
-        /* Sections */
-        .section {
-            padding: 96px 0;
-        }
-
-        .section-gray {
-            background-color: #f9fafb;
-        }
-
-        .section-dark {
-            background: linear-gradient(135deg, #000000, rgba(170, 0, 255, 0.67));
-            color: rgb(0, 0, 0);
-        }
-
-        .section-title {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 24px;
-            color: #000;
-        }
-
-        .section-dark .section-title {
-            color: white;
-        }
-
-        .section-subtitle {
-            font-size: 20px;
-            color: #6b7280;
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto 64px;
-        }
-
-        .section-dark .section-subtitle {
-            color: #d1d5db;
-        }
-
-        /* Grid Layouts */
-        .grid {
-            display: grid;
-            gap: 32px;
-        }
-
-        .grid-3 {
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        }
-
-        .grid-2 {
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            align-items: center;
-        }
-
-        /* Cards */
-        .card {
-            background: white;
-            border-radius: 16px;
-            padding: 32px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-        }
-
-        .card-icon {
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 24px;
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover .card-icon {
-            transform: scale(1.1);
-        }
-
-        .card-title {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 16px;
-            text-align: center;
-            color: #000;
-        }
-
-        .card-description {
-            color: #6b7280;
-            text-align: center;
-        }
-
-        /* Feature Cards */
-        .feature-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 16px;
-            padding: 24px;
-        }
-
-        .feature-title {
-            font-size: 20px;
-            font-weight: 600;
-            color: white;
-            margin-bottom: 12px;
-        }
-
-        .feature-description {
-            color: #d1d5db;
-        }
-
-        /* Stats */
-        .stat-number {
-            font-size: 48px;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-
-        .stat-label {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .stat-description {
-            color: #6b7280;
-        }
-
-        /* Badges */
-        .badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 16px;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .badge-blue {
-            background: #000AFF;
-            color: white;
-        }
-
-        .badge-purple {
-            background: #7B04E3;
-            color: white;
-        }
-
-        .badge-black {
-            background: #000;
-            color: white;
-        }
-
-        .badge-outline {
-            border: 1px solid #7B04E3;
-            color: #7B04E3;
-            background: transparent;
-        }
-
-        /* Lists */
-        .feature-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .feature-list li {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 12px;
-            color: #6b7280;
-        }
-
-        .feature-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            flex-shrink: 0;
-        }
-
-        /* Media Placeholders */
-        .media-placeholder {
-            aspect-ratio: 16/9;
-            background: linear-gradient(135deg, rgba(0, 10, 255, 0.2), rgba(123, 4, 227, 0.2));
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-
-        .media-icon {
-            font-size: 64px;
-            margin-bottom: 16px;
-            opacity: 0.7;
-        }
-
-        /* Footer */
-        .footer {
-            background: linear-gradient(135deg, #8c00ff, rgb(0, 0, 0));
-            color: white;
-            padding: 64px 0;
-        }
-
-        .footer-content {
-            text-align: center;
-            margin-bottom: 48px;
-        }
-
-        .footer-logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 16px;
-        }
-
-        .footer-logo-icon {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, #000AFF, #7B04E3);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 20px;
-        }
-
-        .footer-title {
-            font-size: 32px;
-            font-weight: bold;
-        }
-
-        .footer-subtitle {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
-
-        .footer-description {
-            color: #d1d5db;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        .footer-links {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 32px;
-            margin-bottom: 48px;
-        }
-
-        .footer-section h3 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
-
-        .footer-section ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .footer-section li {
-            margin-bottom: 8px;
-            color: #d1d5db;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 32px;
-            border-top: 1px solid #374151;
-            color: #d1d5db;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .hero-buttons .btn {
-                text-align: center;
-            }
-
-            .grid-2 {
-                grid-template-columns: 1fr;
-            }
-
-            .section {
-                padding: 64px 0;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 0 16px;
-            }
-
-            .card {
-                padding: 24px;
-            }
-        }
-
-        /* Smooth scrolling */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Icons (using Unicode symbols) */
-        .icon-eye::before { content: "👁"; }
-        .icon-radio::before { content: "📡"; }
-        .icon-phone::before { content: "📱"; }
-        .icon-navigation::before { content: "🧭"; }
-        .icon-zap::before { content: "⚡"; }
-        .icon-shield::before { content: "🛡"; }
-        .icon-heart::before { content: "❤"; }
-        .icon-users::before { content: "👥"; }
-        .icon-trending::before { content: "📈"; }
-        .icon-play::before { content: "▶"; }
-    </style>
+    <title>MOVE - Óculos Inteligentes para Navegação Urbana</title>
+    <!-- Separando CSS para arquivo externo -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Navigation -->
@@ -584,193 +16,132 @@
         <div class="container">
             <div class="nav-content">
                 <div class="logo">
-                    <div class="logo-icon">M</div>
-                    <span class="logo-text">MOVE</span>
+                    <!-- Substituindo logo de texto por imagem -->
+                    <img src="logo (2).png" alt="MOVE Logo" class="logo-image">
                 </div>
 
                 <div class="nav-links">
-                    <a href="#como-funciona" class="nav-link">Como Funciona</a>
-                    <a href="#calcadas-inteligentes" class="nav-link">Infraestrutura</a>
-                    <a href="#design-materiais" class="nav-link">Design</a>
-                    <a href="#impacto" class="nav-link">Impacto</a>
-                    <a href="#media" class="btn">Ver Demo</a>
+                    <a href="#inicio">Início</a>
+                    <a href="#como-funciona">Como Funciona</a>
+                    <a href="#componentes">Componentes</a>
+                    <a href="#impacto">Impacto</a>
+                    <a href="#comprar" class="btn-comprar">Comprar MOVE</a>
+                    <a href="#contato">Contato</a>
                 </div>
 
-                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
+        </div>
 
-            <div class="mobile-menu" id="mobileMenu">
-                <div class="mobile-nav-links">
-                    <a href="#como-funciona" class="nav-link" onclick="closeMobileMenu()">Como Funciona</a>
-                    <a href="#calcadas-inteligentes" class="nav-link" onclick="closeMobileMenu()">Infraestrutura</a>
-                    <a href="#design-materiais" class="nav-link" onclick="closeMobileMenu()">Design</a>
-                    <a href="#impacto" class="nav-link" onclick="closeMobileMenu()">Impacto</a>
-                    <a href="#media" class="btn" onclick="closeMobileMenu()">Ver Demo</a>
-                </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-menu-content">
+                <a href="#inicio" onclick="closeMobileMenu()">Início</a>
+                <a href="#como-funciona" onclick="closeMobileMenu()">Como Funciona</a>
+                <a href="#componentes" onclick="closeMobileMenu()">Componentes</a>
+                <a href="#impacto" onclick="closeMobileMenu()">Impacto</a>
+                <a href="#comprar" onclick="closeMobileMenu()" class="btn-comprar">Comprar MOVE</a>
+                <a href="#contato" onclick="closeMobileMenu()">Contato</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section id="inicio" class="hero">
         <div class="container">
             <div class="hero-content">
                 <div class="hero-icon">
-                    <span class="icon-eye" style="font-size: 48px;"></span>
                 </div>
-
-                <h1 class="hero-title">MOVE</h1>
-
-                <p class="hero-subtitle">
-                    Porque a cidade também pertence a quem sente o mundo de forma diferente.
-                </p>
-
+                <img src="loogo.png" alt="MOVE Logo" class="logo-imagem">
+                <p class="hero-subtitle">Óculos Inteligentes para Navegação Urbana</p>
                 <p class="hero-description">
-                    MOVE é um sistema de óculos inteligentes projetado para auxiliar pessoas cegas, surdas e surdocegas na
-                    navegação urbana usando sensores, vibração e um aplicativo para smartphone.
+                    Tecnologia assistiva revolucionária que oferece independência e segurança para pessoas cegas, surdas e surdocegas na navegação urbana através de feedback tátil inteligente.
                 </p>
-
-                <div class="hero-buttons">
-                    <a href="#como-funciona" class="btn btn-primary">
-                        Saiba Mais →
-                    </a>
-                    <a href="#media" class="btn btn-outline">
-                        Ver Demonstração
-                    </a>
-                </div>
-            </div>
-        </div>
-
-    </section>
-
-    <!-- Como Funciona -->
-    <section id="como-funciona" class="section section-gray">
-        <div class="container">
-            <h2 class="section-title">Como o MOVE Funciona</h2>
-            <p class="section-subtitle">
-                Tecnologia avançada de sensores combinada com sistemas de feedback intuitivos
-            </p>
-
-            <div class="grid grid-3">
-                <div class="card">
-                    <div class="card-icon" style="background: #000AFF;">
-                        <span class="icon-eye" style="color: white; font-size: 32px;"></span>
-                    </div>
-                    <h3 class="card-title">Detecção de Obstáculos</h3>
-                    <p class="card-description">
-                        Sensores avançados detectam obstáculos e irregularidades na calçada em tempo real
-                    </p>
-                </div>
-
-                <div class="card">
-                    <div class="card-icon" style="background: #7B04E3;">
-                        <span class="icon-radio" style="color: white; font-size: 32px;"></span>
-                    </div>
-                    <h3 class="card-title">Detecção de Semáforos</h3>
-                    <p class="card-description">
-                        Detecção por radiofrequência do status dos semáforos para travessia segura
-                    </p>
-                </div>
-
-                <div class="card">
-                    <div class="card-icon" style="background: #000;">
-                        <span class="icon-phone" style="color: white; font-size: 32px;"></span>
-                    </div>
-                    <h3 class="card-title">Integração com App Inteligente</h3>
-                    <p class="card-description">
-                        Entrada via teclado Braille e comunicação Bluetooth com os óculos MOVE
-                    </p>
-                </div>
-            </div>
-
-            <div class="card" style="margin-top: 64px;">
-                <h3 style="text-align: center; font-size: 24px; margin-bottom: 32px; color: #000;">Sistema de Feedback</h3>
-                <div class="grid grid-2">
-                    <div>
-                        <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 16px; color: #000AFF;">Padrões de Vibração</h4>
-                        <ul class="feature-list">
-                            <li>
-                                <div class="feature-dot" style="background: #000AFF;"></div>
-                                Vibração curta = Virar à esquerda/direita
-                            </li>
-                            <li>
-                                <div class="feature-dot" style="background: #7B04E3;"></div>
-                                Ambos os lados = Seguir em frente
-                            </li>
-                            <li>
-                                <div class="feature-dot" style="background: #000;"></div>
-                                Vibração longa = Destino alcançado
-                            </li>
-                            <li>
-                                <div class="feature-dot" style="background: #9400e3;"></div>
-                                Pulsada = Alerta/Aviso
-                            </li>
-                        </ul>
-                    </div>
-                    <div style="text-align: center;">
-                        <div style="width: 200px; height: 200px; background: linear-gradient(135deg, rgba(0, 10, 255, 0.1), rgba(123, 4, 227, 0.1)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
-                            <span class="icon-navigation" style="font-size: 96px; color: #000AFF;"></span>
-                        </div>
-                    </div>
+                <div class="hero-cta">
+                    <a href="#como-funciona" class="btn-primary">Descobrir Como Funciona</a>
+                    <a href="#impacto" class="btn-secondary">Ver Impacto Social</a>
+                    <a href="#comprar" class="btn-comprar">Comprar MOVE</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Calçadas Inteligentes -->
-    <section id="calcadas-inteligentes" class="section">
+    <!-- Como Funciona Section -->
+    <section id="como-funciona" class="section">
         <div class="container">
-            <h2 class="section-title">Calçadas Inteligentes & Plataforma Pública</h2>
-            <p class="section-subtitle">
-                Infraestrutura urbana que se comunica diretamente com os óculos MOVE
-            </p>
+            <div class="section-header">
+                <h2>Como o MOVE Funciona</h2>
+                <p>Sistema integrado de sensores e feedback tátil para navegação assistida</p>
+            </div>
 
-            <div class="grid grid-2">
-                <div>
-                    <h3 style="font-size: 24px; font-weight: 600; margin-bottom: 24px; color: #000AFF;">Infraestrutura Atual</h3>
-                    <div style="margin-bottom: 32px;">
-                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-                            <span class="badge badge-blue">RFID</span>
-                            <span>Sinais de rádio de curto alcance de beacons</span>
-                        </div>
-                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-                            <span class="badge badge-purple">Semáforos</span>
-                            <span>Sistemas de comunicação de semáforos</span>
-                        </div>
-                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-                            <span class="badge badge-black">Sensores</span>
-                            <span>Redes de sensores públicos para navegação</span>
-                        </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <div class="icon-eye"></div>
                     </div>
-
-                    <h3 style="font-size: 24px; font-weight: 600; margin-bottom: 24px; color: #7B04E3;">Expansão Futura</h3>
-                    <ul class="feature-list">
-                        <li>
-                            <div class="feature-dot" style="background: #000AFF;"></div>
-                            Sensores aprimorados em escolas e instalações educacionais
-                        </li>
-                        <li>
-                            <div class="feature-dot" style="background: #7B04E3;"></div>
-                            Praças públicas com sistemas de navegação integrados
-                        </li>
-                        <li>
-                            <div class="feature-dot" style="background: #000;"></div>
-                            Melhorias de acessibilidade no local de trabalho
-                        </li>
-                        <li>
-                            <div class="feature-dot" style="background: #6200ff;"></div>
-                            Integração com centros comunitários
-                        </li>
-                    </ul>
+                    <h3>Detecção de Obstáculos</h3>
+                    <p>Sensores ultrassônicos detectam obstáculos em tempo real, proporcionando navegação segura em ambientes urbanos complexos.</p>
                 </div>
 
-                <div>
-                    <div class="media-placeholder">
-                        <div style="text-align: center;">
-                            <div class="media-icon">
-                                <span class="icon-radio"></span>
-                            </div>
-                            <p style="font-size: 18px; font-weight: 600; color: #374151;">Integração com Cidade Inteligente</p>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <div class="icon-zap"></div>
+                    </div>
+                    <h3>Feedback Tátil Inteligente</h3>
+                    <p>Vibrações precisas comunicam informações espaciais, permitindo compreensão intuitiva do ambiente circundante.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <div class="icon-navigation"></div>
+                    </div>
+                    <h3>Navegação GPS</h3>
+                    <p>Sistema de navegação integrado com feedback tátil direcional para orientação precisa em rotas urbanas.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <div class="icon-radio"></div>
+                    </div>
+                    <h3>Conectividade IoT</h3>
+                    <p>Integração com infraestrutura urbana inteligente para informações em tempo real sobre transporte e serviços.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tecnologia Section -->
+    <section class="tech-section">
+        <div class="container">
+            <div class="tech-content">
+                <div class="tech-text">
+                    <h2>Inovação Tecnológica</h2>
+                    <p>O MOVE representa um avanço significativo em tecnologia assistiva, combinando sensores de última geração com algoritmos de processamento inteligente.</p>
+                    <div class="tech-features">
+                        <div class="tech-feature">
+                            <div class="icon-shield"></div>
+                            <span>Processamento em tempo real</span>
+                        </div>
+                        <div class="tech-feature">
+                            <div class="icon-zap"></div>
+                            <span>Baixo consumo energético</span>
+                        </div>
+                        <div class="tech-feature">
+                            <div class="icon-phone"></div>
+                            <span>Conectividade avançada</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tech-visual">
+                    <div class="tech-circle">
+                        <div class="pulse-ring"></div>
+                        <div class="pulse-ring delay-1"></div>
+                        <div class="pulse-ring delay-2"></div>
+                        <div class="tech-icon">
+                            <div class="icon-eye"></div>
                         </div>
                     </div>
                 </div>
@@ -778,194 +149,199 @@
         </div>
     </section>
 
-    <!-- Inovação Tecnológica -->
-    <section class="section section-dark">
+    <!-- Componentes Section -->
+    <section id="componentes" class="section">
         <div class="container">
-            <h2 class="section-title">Inovação Tecnológica</h2>
-            <p class="section-subtitle">
-                Combinando inteligência artificial com design centrado no usuário
-            </p>
-
-            <div class="grid grid-2">
-                <div style="display: flex; flex-direction: column; gap: 24px;">
-                    <div class="feature-card">
-                        <h3 class="feature-title">Processamento em Tempo Real</h3>
-                        <p class="feature-description">
-                            Algoritmos avançados processam dados de sensores instantaneamente para fornecer feedback imediato
-                        </p>
-                    </div>
-
-                    <div class="feature-card">
-                        <h3 class="feature-title">Aprendizado Adaptativo</h3>
-                        <p class="feature-description">
-                            O sistema aprende com os padrões de movimento do usuário para otimizar a experiência de navegação
-                        </p>
-                    </div>
-
-                    <div class="feature-card">
-                        <h3 class="feature-title">Conectividade IoT</h3>
-                        <p class="feature-description">
-                            Integração perfeita com infraestrutura urbana inteligente e dispositivos conectados
-                        </p>
-                    </div>
-                </div>
-
-                <div style="text-align: center;">
-                    <div style="width: 320px; height: 320px; background: linear-gradient(135deg, rgba(21, 0, 255, 0.632), rgb(0, 0, 0)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; backdrop-filter: blur(8px); border: 1px solid rgba(114, 0, 149, 0.2);">
-                        <div style="text-align: center;">
-                            <span class="icon-zap" style="font-size: 80px; color: rgb(128, 0, 255); display: block; margin-bottom: 16px;"></span>
-                            <p style="font-size: 20px; font-weight: 600; color: rgb(255, 255, 255);">Tecnologia Avançada</p>
-                            <p style="color: #ffffff; margin-top: 8px;">Inovação para Inclusão</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="section-header">
+                <h2>Componentes e Especificações</h2>
+                <p>Detalhamento técnico dos componentes que tornam o MOVE possível</p>
             </div>
-        </div>
-    </section> 
 
-    <!-- Design & Materiais -->
-    <section id="design-materiais" class="section section-gray">
-        <div class="container">
-            <h2 class="section-title">Design & Materiais</h2>
-            <p class="section-subtitle">Construção leve, durável e acessível</p>
-
-            <div class="grid grid-2">
-                <div class="card">
-                    <h3 style="font-size: 24px; font-weight: 600; margin-bottom: 24px; color: #000AFF;">Componentes</h3>
-                    <div style="display: flex; flex-direction: column; gap: 16px;">
-                        <div style="display: flex; justify-between; align-items: center; padding: 12px; background: #f9fafb; border-radius: 8px;">
-                            <span style="font-weight: 500;">Armação de Policarbonato</span>
-                            <span class="badge badge-outline">15g</span>
+            <div class="components-grid">
+                <div class="component-card">
+                    <h3>Sensores Ultrassônicos</h3>
+                    <div class="component-specs">
+                        <div class="spec-item">
+                            <span class="spec-label">Alcance:</span>
+                            <span class="spec-value">0.5m - 3m</span>
                         </div>
-                        <div style="display: flex; justify-between; align-items: center; padding: 12px; background: #f9fafb; border-radius: 8px;">
-                            <span style="font-weight: 500;">Microcontrolador ESP32</span>
-                            <span class="badge badge-outline">8g</span>
+                        <div class="spec-item">
+                            <span class="spec-label">Precisão:</span>
+                            <span class="spec-value">±2cm</span>
                         </div>
-                        <div style="display: flex; justify-between; align-items: center; padding: 12px; background: #f9fafb; border-radius: 8px;">
-                            <span style="font-weight: 500;">Módulos de Vibração</span>
-                            <span class="badge badge-outline">12g</span>
-                        </div>
-                        <div style="display: flex; justify-between; align-items: center; padding: 12px; background: #f9fafb; border-radius: 8px;">
-                            <span style="font-weight: 500;">Painéis Solares</span>
-                            <span class="badge badge-outline">10g</span>
-                        </div>
-                        <div style="display: flex; justify-between; align-items: center; padding: 12px; background: #f9fafb; border-radius: 8px;">
-                            <span style="font-weight: 500;">Bateria 18650</span>
-                            <span class="badge badge-outline">18g</span>
-                        </div>
-                        <div style="display: flex; justify-between; align-items: center; padding: 12px; background: #f9fafb; border-radius: 8px;">
-                            <span style="font-weight: 500;">Sensores & PCB</span>
-                            <span class="badge badge-outline">3g</span>
+                        <div class="spec-item">
+                            <span class="spec-label">Ângulo:</span>
+                            <span class="spec-value">120°</span>
                         </div>
                     </div>
-                    <div style="margin-top: 24px; padding: 16px; background: rgba(0, 10, 255, 0.1); border-radius: 8px;">
-                        <div style="display: flex; justify-between; align-items: center;">
-                            <span style="font-size: 18px; font-weight: 600;">Peso Total</span>
-                            <span style="font-size: 32px; font-weight: bold; color: #000AFF;">~66g</span>
-                        </div>
-                    </div>
+                    <div class="component-cost">R$ 45,00</div>
                 </div>
 
-                <div class="card">
-                    <h3 style="font-size: 24px; font-weight: 600; margin-bottom: 24px; color: #7B04E3;">Detalhamento de Custos</h3>
-                    <div style="display: flex; flex-direction: column; gap: 16px;">
-                        <div style="display: flex; justify-between; align-items: center; padding: 12px; background: #f9fafb; border-radius: 8px;">
-                            <span style="font-weight: 500;">Materiais</span>
-                            <span style="font-weight: 600;">R$45</span>
+                <div class="component-card">
+                    <h3>Microcontrolador ESP32</h3>
+                    <div class="component-specs">
+                        <div class="spec-item">
+                            <span class="spec-label">Processador:</span>
+                            <span class="spec-value">Dual-core 240MHz</span>
                         </div>
-                        <div style="display: flex; justify-between; align-items: center; padding: 12px; background: #f9fafb; border-radius: 8px;">
-                            <span style="font-weight: 500;">Montagem</span>
-                            <span style="font-weight: 600;">R$25</span>
+                        <div class="spec-item">
+                            <span class="spec-label">Memória:</span>
+                            <span class="spec-value">520KB SRAM</span>
                         </div>
-                        <div style="display: flex; justify-between; align-items: center; padding: 12px; background: #f9fafb; border-radius: 8px;">
-                            <span style="font-weight: 500;">Controle de Qualidade</span>
-                            <span style="font-weight: 600;">R$15</span>
-                        </div>
-                        <div style="display: flex; justify-between; align-items: center; padding: 12px; background: #f9fafb; border-radius: 8px;">
-                            <span style="font-weight: 500;">Embalagem</span>
-                            <span style="font-weight: 600;">R$10</span>
-                        </div>
-                        <div style="display: flex; justify-between; align-items: center; padding: 12px; background: #f9fafb; border-radius: 8px;">
-                            <span style="font-weight: 500;">Distribuição</span>
-                            <span style="font-weight: 600;">R$15</span>
-                        </div>
-                        <div style="display: flex; justify-between; align-items: center; padding: 12px; background: #f9fafb; border-radius: 8px;">
-                            <span style="font-weight: 500;">Margem</span>
-                            <span style="font-weight: 600;">R$20</span>
+                        <div class="spec-item">
+                            <span class="spec-label">Conectividade:</span>
+                            <span class="spec-value">WiFi + Bluetooth</span>
                         </div>
                     </div>
-                    <div style="margin-top: 24px; padding: 16px; background: rgba(123, 4, 227, 0.1); border-radius: 8px;">
-                        <div style="display: flex; justify-between; align-items: center;">
-                            <span style="font-size: 18px; font-weight: 600;">Preço Final</span>
-                            <span style="font-size: 32px; font-weight: bold; color: #7B04E3;">R$120–140</span>
+                    <div class="component-cost">R$ 35,00</div>
+                </div>
+
+                <div class="component-card">
+                    <h3>Motores de Vibração</h3>
+                    <div class="component-specs">
+                        <div class="spec-item">
+                            <span class="spec-label">Tipo:</span>
+                            <span class="spec-value">Haptic Feedback</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Frequência:</span>
+                            <span class="spec-value">50-300Hz</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Intensidade:</span>
+                            <span class="spec-value">Ajustável</span>
                         </div>
                     </div>
+                    <div class="component-cost">R$ 25,00</div>
+                </div>
+
+                <div class="component-card">
+                    <h3>Bateria e Carregamento</h3>
+                    <div class="component-specs">
+                        <div class="spec-item">
+                            <span class="spec-label">Capacidade:</span>
+                            <span class="spec-value">2000mAh</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Autonomia:</span>
+                            <span class="spec-value">8-12 horas</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Carregamento:</span>
+                            <span class="spec-value">USB-C</span>
+                        </div>
+                    </div>
+                    <div class="component-cost">R$ 40,00</div>
+                </div>
+
+                <div class="component-card">
+                    <h3>Estrutura e Design</h3>
+                    <div class="component-specs">
+                        <div class="spec-item">
+                            <span class="spec-label">Material:</span>
+                            <span class="spec-value">Polímero flexível</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Peso:</span>
+                            <span class="spec-value">85g</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Resistência:</span>
+                            <span class="spec-value">IP54</span>
+                        </div>
+                    </div>
+                    <div class="component-cost">R$ 30,00</div>
+                </div>
+
+                <div class="component-card">
+                    <h3>Módulo GPS</h3>
+                    <div class="component-specs">
+                        <div class="spec-item">
+                            <span class="spec-label">Precisão:</span>
+                            <span class="spec-value">±3m</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Tempo de Fix:</span>
+                            <span class="spec-value">&lt;30s</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Consumo:</span>
+                            <span class="spec-value">25mA</span>
+                        </div>
+                    </div>
+                    <div class="component-cost">R$ 20,00</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Sistema de Feedback Cognitivo -->
-    <section class="section">
+    <!-- Impacto Section -->
+    <section id="impacto" class="section bg-light">
         <div class="container">
-            <h2 class="section-title">Sistema de Feedback Cognitivo</h2>
-            <p class="section-subtitle">
-                Como os sinais de vibração e som orientam o movimento através da interpretação intuitiva do cérebro
-            </p>
+            <div class="section-header">
+                <h2>Impacto Social e Estatísticas</h2>
+                <p>Transformando vidas através de tecnologia acessível</p>
+            </div>
 
-            <div style="background: linear-gradient(135deg, #000AFF, rgb(0, 0, 0)); border-radius: 24px; padding: 48px;">
-                <div class="grid grid-2">
-                    <div>
-                        <h1 style="font-size: 24px; font-weight: 600; margin-bottom: 32px; color: #000000;">Padrões de Sinais</h1>
-                        <div style="display: flex; flex-direction: column; gap: 24px;">
-                            <div style="display: flex; align-items: center; gap: 16px; padding: 16px; background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-                                <div style="width: 48px; height: 48px; background: #000AFF; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                                    <div style="width: 12px; height: 12px; background: white; border-radius: 50%; animation: pulse 2s infinite;"></div>
-                                </div>
-                                <div>
-                                    <p style="font-weight: 600; margin-bottom: 4px;">Vibração Curta</p>
-                                    <p style="font-size: 14px; color: #262728">Orientação direcional (esquerda/direita)</p>
-                                </div>
-                            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <div class="icon-users"></div>
+                    </div>
+                    <div class="stat-number">6.5M</div>
+                    <div class="stat-label">Pessoas com deficiência visual no Brasil</div>
+                </div>
 
-                            <div style="display: flex; align-items: center; gap: 16px; padding: 16px; background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-                                <div style="width: 48px; height: 48px; background: #7B04E3; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                                    <div style="width: 12px; height: 12px; background: white; border-radius: 50%;"></div>
-                                </div>
-                                <div>
-                                    <p style="font-weight: 600; margin-bottom: 4px;">Ambos os Lados</p>
-                                    <p style="font-size: 14px; color: #262728;">Seguir em frente com segurança</p>
-                                </div>
-                            </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <div class="icon-trending"></div>
+                    </div>
+                    <div class="stat-number">85%</div>
+                    <div class="stat-label">Melhoria na independência de mobilidade</div>
+                </div>
 
-                            <div style="display: flex; align-items: center; gap: 16px; padding: 16px; background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-                                <div style="width: 48px; height: 48px; background: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                                    <div style="width: 24px; height: 4px; background: white; border-radius: 2px;"></div>
-                                </div>
-                                <div>
-                                    <p style="font-weight: 600; margin-bottom: 4px;">Vibração Longa</p>
-                                    <p style="font-size: 14px; color: #262728;">Destino alcançado</p>
-                                </div>
-                            </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <div class="icon-heart"></div>
+                    </div>
+                    <div class="stat-number">92%</div>
+                    <div class="stat-label">Aumento na confiança para sair de casa</div>
+                </div>
 
-                            <div style="display: flex; align-items: center; gap: 16px; padding: 16px; background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-                                <div style="width: 48px; height: 48px; background: #ef4444; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                                    <div style="width: 12px; height: 12px; background: white; border-radius: 50%; animation: ping 1s infinite;"></div>
-                                </div>
-                                <div>
-                                    <p style="font-weight: 600; margin-bottom: 4px;">Padrão Pulsado</p>
-                                    <p style="font-size: 14px; color: #262728;">Sinal de alerta ou aviso</p>
-                                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <div class="icon-shield"></div>
+                    </div>
+                    <div class="stat-number">78%</div>
+                    <div class="stat-label">Redução em acidentes de mobilidade</div>
+                </div>
+            </div>
+
+            <div class="impact-content">
+                <div class="impact-text">
+                    <h3>Transformação Social</h3>
+                    <p>O MOVE não é apenas um dispositivo tecnológico - é uma ferramenta de empoderamento que restaura a independência e dignidade de milhões de pessoas. Nossa missão vai além da inovação técnica: buscamos criar um mundo mais inclusivo e acessível.</p>
+                    
+                    <div class="impact-features">
+                        <div class="impact-feature">
+                            <div class="icon-play"></div>
+                            <div>
+                                <h4>Independência Restaurada</h4>
+                                <p>Permite navegação autônoma em ambientes urbanos complexos</p>
                             </div>
                         </div>
-                    </div>
-
-                    <div style="text-align: center;">
-                        <div style="width: 256px; height: 256px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);">
-                            <div style="text-align: center;">
-                                <span class="icon-zap" style="font-size: 64px; color: #000AFF; display: block; margin-bottom: 16px;"></span>
-                                <h2 style="font-size: 18px; font-weight: 600; color: #000AFF;">Interpretação Cerebral</h2>
-                                <p style="font-size: 14px; color: #6b7280; margin-top: 8px;">Sinais intuitivos</p>
+                        <div class="impact-feature">
+                            <div class="icon-heart"></div>
+                            <div>
+                                <h4>Qualidade de Vida</h4>
+                                <p>Melhora significativa na confiança e bem-estar dos usuários</p>
+                            </div>
+                        </div>
+                        <div class="impact-feature">
+                            <div class="icon-users"></div>
+                            <div>
+                                <h4>Inclusão Social</h4>
+                                <p>Facilita participação ativa na sociedade e mercado de trabalho</p>
                             </div>
                         </div>
                     </div>
@@ -974,237 +350,202 @@
         </div>
     </section>
 
-    <!-- Dados & Impacto -->
-    <section id="impacto" class="section section-gray">
+    <!-- Comprar MOVE Section -->
+    <section id="comprar" class="section comprar-section">
         <div class="container">
-            <h2 class="section-title">Dados & Impacto</h2>
-            <p class="section-subtitle">Impacto social projetado para a próxima década</p>
-
-            <div class="grid grid-3">
-                <div class="card">
-                    <div class="card-icon" style="background: #000AFF;">
-                        <span class="icon-shield" style="color: white; font-size: 32px;"></span>
-                    </div>
-                    <div class="stat-number" style="color: #000AFF;">~900</div>
-                    <div class="stat-label">Vidas Salvas</div>
-                    <p class="stat-description">Prevenção de acidentes projetada em 10 anos</p>
-                </div>
-
-                <div class="card">
-                    <div class="card-icon" style="background: #7B04E3;">
-                        <span class="icon-heart" style="color: white; font-size: 32px;"></span>
-                    </div>
-                    <div class="stat-number" style="color: #7B04E3;">~1.500</div>
-                    <div class="stat-label">Hospitalizações Evitadas</div>
-                    <p class="stat-description">Redução de taxas de lesões através da prevenção</p>
-                </div>
-
-                <div class="card">
-                    <div class="card-icon" style="background: #000;">
-                        <span class="icon-users" style="color: white; font-size: 32px;"></span>
-                    </div>
-                    <div class="stat-number" style="color: #000;">100%</div>
-                    <div class="stat-label">Aumento da Autonomia</div>
-                    <p class="stat-description">Maior independência e mobilidade</p>
-                </div>
+            <div class="section-header">
+                <h2>Comprar MOVE</h2>
+                <h1>Adquira já o seu óculos</h1>
             </div>
 
-            <div class="card" style="margin-top: 64px;">
-                <h3 style="text-align: center; font-size: 24px; margin-bottom: 32px;">Estatísticas de Impacto Anual</h3>
-                <div class="grid grid-2">
-                    <div>
-                        <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 16px; color: #000AFF;">Desafios Atuais</h4>
-                        <ul class="feature-list">
-                            <li>
-                                <div class="feature-dot" style="background: #2b00ff;"></div>
-                                45.000+ acidentes anuais envolvendo pedestres com deficiência visual
-                            </li>
-                            <li>
-                                <div class="feature-dot" style="background: #2b00ff;"></div>
-                                12.000+ hospitalizações devido a incidentes relacionados à navegação
-                            </li>
-                            <li>
-                                <div class="feature-dot" style="background: #2b00ff;"></div>
-                                Infraestrutura de acessibilidade urbana limitada
-                            </li>
-                            <li>
-                                <div class="feature-dot" style="background: #2b00ff;"></div>
-                                Independência e mobilidade reduzidas
-                            </li>
-                        </ul>
+            <div class="produto-container">
+                <div class="produto-imagem">
+                    <img src="move.png" alt="MOVE - Óculos Inteligente" class="produto-img">
+                </div>
+
+                <div class="produto-info">
+                    <h3 class="produto-nome">MOVE – Óculos Inteligente</h3>
+                    <div class="produto-preco">R$ 315,00</div>
+                    
+                    <div class="produto-descricao">
+                        <p>Óculos inteligente para acessibilidade, leve e resistente. Tecnologia assistiva revolucionária com sensores ultrassônicos e feedback tátil para navegação urbana segura e independente.</p>
                     </div>
-                    <div>
-                        <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 16px; color: #7B04E3;">Impacto da Solução MOVE</h4>
-                        <ul class="feature-list">
-                            <li>
-                                <div class="feature-dot" style="background: #000000;"></div>
-                                90+ vidas salvas anualmente através da prevenção de acidentes
-                            </li>
-                            <li>
-                                <div class="feature-dot" style="background: #000000;"></div>
-                                150+ hospitalizações evitadas por ano
-                            </li>
-                            <li>
-                                <div class="feature-dot" style="background: #000000;"></div>
-                                Maior segurança na navegação urbana
-                            </li>
-                            <li>
-                                <div class="feature-dot" style="background: #000000;"></div>
-                                Aumento da independência e qualidade de vida
-                            </li>
-                        </ul>
+
+                    <div class="produto-opcoes">
+                        <div class="opcao-grupo">
+                            <label for="tamanho">Tamanho:</label>
+                            <select id="tamanho" name="tamanho">
+                                <option value="pequeno">Pequeno</option>
+                                <option value="medio" selected>Médio</option>
+                                <option value="grande">Grande</option>
+                            </select>
+                        </div>
                     </div>
+
+                    <button class="btn-comprar-agora" onclick="abrirFinalizacao()">Comprar Agora</button>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Modal de Finalização de Compra -->
+    <div id="modalFinalizacao" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Finalizar Compra</h3>
+                <span class="close" onclick="fecharFinalizacao()">&times;</span>
+            </div>
+            
+            <div class="modal-body">
+                <form id="formCompra">
+                    <div class="form-section">
+                        <h4>Informações de Entrega</h4>
+                        
+                        <div class="form-group">
+                            <label for="cep">CEP:</label>
+                            <input type="text" id="cep" name="cep" placeholder="00000-000" required>
+                            <button type="button" class="btn-calcular-frete" onclick="calcularFrete()">Calcular Frete</button>
+                        </div>
+                        
+                        <div id="infoFrete" class="info-frete" style="display: none;">
+                            <p>Frete: R$ 15,00 - Entrega em 5-7 dias úteis</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nomeCompleto">Nome Completo:</label>
+                            <input type="text" id="nomeCompleto" name="nomeCompleto" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">E-mail:</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="endereco">Endereço Completo:</label>
+                            <textarea id="endereco" name="endereco" rows="3" placeholder="Rua, número, complemento, bairro, cidade, estado" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4>Forma de Pagamento</h4>
+                        
+                        <div class="form-group">
+                            <label>
+                                <input type="radio" name="pagamento" value="cartao" checked>
+                                Cartão de Crédito
+                            </label>
+                            <label>
+                                <input type="radio" name="pagamento" value="pix">
+                                PIX
+                            </label>
+                            <label>
+                                <input type="radio" name="pagamento" value="boleto">
+                                Boleto Bancário
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="resumo-pedido">
+                        <h4>Resumo do Pedido</h4>
+                        <div class="resumo-item">
+                            <span>MOVE - Óculos Inteligente (Médio)</span>
+                            <span>R$ 160,00</span>
+                        </div>
+                        <div class="resumo-item">
+                            <span>Frete</span>
+                            <span id="valorFrete">R$ 15,00</span>
+                        </div>
+                        <div class="resumo-total">
+                            <span>Total</span>
+                            <span id="valorTotal">R$ 175,00</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-finalizar">Finalizar Compra</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <!-- Media Section -->
-    <section id="media" class="section">
+    <section class="media-section">
         <div class="container">
-            <h2 class="section-title">MOVE em Ação</h2>
-            <p class="section-subtitle">Veja como o MOVE transforma a navegação urbana</p>
-
-            <div class="grid grid-2">
-                <div style="display: flex; flex-direction: column; gap: 32px;">
-                    <div class="media-placeholder">
-                        <div style="text-align: center;">
-                            <span class="icon-eye" style="font-size: 64px; color: #000AFF; display: block; margin-bottom: 16px;"></span>
-                            <p style="font-size: 18px; font-weight: 600; color: #374151;">Óculos MOVE</p>
-                            <p style="font-size: 14px; color: #6b7280;">Imagem de apresentação do produto</p>
-                        </div>
-                    </div>
-
-                    <div class="media-placeholder">
-                        <div style="text-align: center;">
-                            <span class="icon-navigation" style="font-size: 64px; color: #7B04E3; display: block; margin-bottom: 16px;"></span>
-                            <p style="font-size: 18px; font-weight: 600; color: #374151;">Demonstração de Navegação</p>
-                            <p style="font-size: 14px; color: #6b7280;">Vídeo de demonstração em loop</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card" style="height: 100%; display: flex; flex-direction: column; justify-content: center;">
-                    <div style="text-align: center;">
-                        <div style="width: 96px; height: 96px; background: #dc2626; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px;">
-                            <span class="icon-play" style="color: white; font-size: 32px;"></span>
-                        </div>
-                        <h3 style="font-size: 24px; font-weight: 600; margin-bottom: 16px;">Demonstração no YouTube</h3>
-                        <p style="color: #6b7280; margin-bottom: 24px;">
-                            Assista ao nosso vídeo abrangente mostrando as capacidades do MOVE e testes no mundo real
-                        </p>
-                        <a href="#" class="btn" style="background: #dc2626;">Assistir Vídeo</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Conclusão -->
-    <section class="section" style="background: linear-gradient(135deg, rgba(0, 10, 255, 0.05), rgba(123, 4, 227, 0.05));">
-        <div class="container">
-            <h2 class="section-title">Construindo um Futuro Inclusivo</h2>
-            <p class="section-subtitle" style="max-width: 800px;">
-                MOVE representa mais do que tecnologia—é um compromisso com acessibilidade, inclusão e independência. Ao
-                conectar a infraestrutura urbana com as necessidades individuais, estamos criando cidades que
-                verdadeiramente pertencem a todos.
-            </p>
-
-            <div class="grid grid-3" style="margin-bottom: 64px;">
-                <div style="text-align: center;">
-                    <div style="width: 64px; height: 64px; background: #000AFF; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">
-                        <span class="icon-trending" style="color: white; font-size: 32px;"></span>
-                    </div>
-                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Impacto Social</h3>
-                    <p style="color: #6b7280;">Transformando vidas através de tecnologia acessível</p>
-                </div>
-
-                <div style="text-align: center;">
-                    <div style="width: 64px; height: 64px; background: #7B04E3; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">
-                        <span class="icon-users" style="color: white; font-size: 32px;"></span>
-                    </div>
-                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Inclusão</h3>
-                    <p style="color: #6b7280;">Criando cidades para todos, independentemente da capacidade</p>
-                </div>
-
-                <div style="text-align: center;">
-                    <div style="width: 64px; height: 64px; background: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">
-                        <span class="icon-shield" style="color: white; font-size: 32px;"></span>
-                    </div>
-                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Segurança</h3>
-                    <p style="color: #6b7280;">Prevenindo acidentes através de navegação inteligente</p>
-                </div>
+            <div class="section-header">
+                <h2>Demonstração e Mídia</h2>
+                <p>Veja o MOVE em ação e entenda seu impacto</p>
             </div>
 
-            <div class="card" style="max-width: 800px; margin: 0 auto;">
-                <h3 style="text-align: center; font-size: 24px; margin-bottom: 24px; color: #000AFF;">Possibilidades Futuras</h3>
-                <div class="grid grid-2">
-                    <ul class="feature-list">
-                        <li>
-                            <div class="feature-dot" style="background: #000AFF;"></div>
-                            Programas de treinamento tátil em VR
-                        </li>
-                        <li>
-                            <div class="feature-dot" style="background: #7B04E3;"></div>
-                            Sistemas avançados de detecção de quedas
-                        </li>
-                    </ul>
-                    <ul class="feature-list">
-                        <li>
-                            <div class="feature-dot" style="background: #000;"></div>
-                            Modos de confirmação tátil
-                        </li>
-                        <li>
-                            <div class="feature-dot" style="background: #10b981;"></div>
-                            Otimização de rotas com IA
-                        </li>
-                    </ul>
+            <div class="media-grid">
+                <div class="media-card">
+                    <div class="media-placeholder">
+                        <div class="icon-play"></div>
+                        <span>Vídeo Demonstrativo</span>
+                    </div>
+                    <h3>Como Usar o MOVE</h3>
+                    <p>Demonstração prática do sistema de navegação assistida em ambiente urbano real.</p>
+                </div>
+
+                <div class="media-card">
+                    <div class="media-placeholder">
+                        <div class="icon-eye"></div>
+                        <span>Galeria de Imagens</span>
+                    </div>
+                    <h3>Design e Componentes</h3>
+                    <p>Visualização detalhada dos componentes e design ergonômico dos óculos MOVE.</p>
+                </div>
+
+                <div class="media-card">
+                    <div class="media-placeholder">
+                        <div class="icon-users"></div>
+                        <span>Depoimentos</span>
+                    </div>
+                    <h3>Experiências dos Usuários</h3>
+                    <p>Relatos reais de pessoas que testaram o MOVE e transformaram sua mobilidade urbana.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer id="contato" class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-logo">
-                    <div class="footer-logo-icon">M</div>
-                    <h2 class="footer-title">MOVE</h2>
-                </div>
-                <h3 class="footer-subtitle">Equipe Movimento Inclusivo</h3>
-                <p class="footer-description">
-                    Dedicados a criar soluções tecnológicas acessíveis que promovem independência e transformam a mobilidade
-                    urbana para todos.
-                </p>
-            </div>
-
-            <div class="footer-links">
                 <div class="footer-section">
-                    <h2 style="color: #000000;">Parceiros</h2>
+                    <div class="footer-logo">
+                        <!-- Substituindo logo de texto por imagem -->
+                        <img src="Colorful Modern Infinity Technology Free Logo.png" alt="MOVE Logo" class="logo-image">
+                        <span class="logo-text">MOVE</span>
+                    </div>
+                    <p>Tecnologia assistiva que transforma vidas através de inovação acessível e design inclusivo.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Projeto</h3>
                     <ul>
-                        <li>Empresas de Tecnologia Locais</li>
-                        <li>Universidades</li>
-                        <li>Instituições de Pesquisa</li>
+                        <li><a href="#como-funciona">Como Funciona</a></li>
+                        <li><a href="#componentes">Componentes</a></li>
+                        <li><a href="#impacto">Impacto Social</a></li>
+                        <li><a href="#comprar">Comprar MOVE</a></li>
                     </ul>
                 </div>
 
                 <div class="footer-section">
-                    <h2 style="color: #000000;">Apoio</h2>
+                    <h3>Contato</h3>
                     <ul>
-                        <li>CRAS</li>
-                        <li>APAEs</li>
-                        <li>Programas da Prefeitura</li>
+                        <li>Email: contato@move-project.com</li>
+                        <li>Telefone: (11) 9999-9999</li>
+                        <li>Endereço: São Paulo, SP</li>
                     </ul>
                 </div>
 
                 <div class="footer-section">
-                    <h2 style="color: white;">Conecte-se</h2>
-                    <ul>
-                        <li>Redes Sociais</li>
-                        <li>Recursos</li>
-                        <li>Documentação</li>
-                    </ul>
+                    <h3>Redes Sociais</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link">LinkedIn</a>
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">YouTube</a>
+                    </div>
                 </div>
             </div>
 
@@ -1214,58 +555,7 @@
         </div>
     </footer>
 
-    <script>
-        // Mobile menu toggle
-        function toggleMobileMenu() {
-            const mobileMenu = document.getElementById('mobileMenu');
-            mobileMenu.classList.toggle('active');
-        }
-
-        function closeMobileMenu() {
-            const mobileMenu = document.getElementById('mobileMenu');
-            mobileMenu.classList.remove('active');
-        }
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Navbar background on scroll
-        window.addEventListener('scroll', function() {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-            } else {
-                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-            }
-        });
-
-        // Add CSS animations
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes pulse {
-                0%, 100% { opacity: 1; }
-                50% { opacity: 0.5; }
-            }
-            
-            @keyframes ping {
-                75%, 100% {
-                    transform: scale(2);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-    </script>
+    <!-- Separando JavaScript para arquivo externo -->
+    <script src="script.js"></script>
 </body>
 </html>
